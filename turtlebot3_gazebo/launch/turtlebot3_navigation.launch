@@ -1,0 +1,79 @@
+<launch>
+
+  <arg name="gui" default="true"/>
+
+  <!-- Arguments -->
+  <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="map_file" default="$(find turtlebot3_gazebo)/maps/WH/wh-1.yaml"/>
+  <!-- <arg name="map_file" default="$(find turtlebot3_gazebo)/maps/005/map.yaml"/> -->
+  <arg name="open_rviz" default="true"/>
+  <arg name="move_forward_only" default="false"/>
+
+  <!-- Map server -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+
+  <!-- <node pkg="tf" type="static_transform_publisher" name="amcl" args="0 0 0 0 0 0 map odom 100"/> -->
+
+  <!-- Turtlebot3 -->
+  <arg name="x_pos" default="-2.573677"/>
+  <arg name="y_pos" default="5.301994"/>
+  <arg name="z_pos" default="0.0"/>
+
+  <!-- Turtlebot3 World-->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/no_roof_small_warehouse.world"/>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="$(arg gui)"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+    <arg name="verbose" default="true"/>
+  </include>
+
+  <param name="robot_description" command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+  <!-- <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf"  args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" /> -->
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" respawn="false" output="screen" args="-urdf -param robot_description -model turtlebot3_$(arg model)" />
+
+
+  <!-- <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" 
+   output="screen" args="-urdf -param robot_description -model mcl_bot"/> -->
+
+
+  <!-- <arg name="multi_robot_name" default=""/>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="50.0" />
+    <param name="tf_prefix" value="$(arg multi_robot_name)"/>
+  </node> -->
+  <!-- Send fake joint values-->
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/> -->
+
+
+
+
+  <!-- Send robot states to tf -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+
+
+
+
+  <!-- AMCL -->
+  <include file="$(find turtlebot3_gazebo)/launch/amcl.launch"/>
+
+
+  <!-- move_base -->
+  <include file="$(find turtlebot3_gazebo)/launch/move_base.launch">
+    <arg name="model" value="$(arg model)" />
+    <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+  </include>
+
+
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find turtlebot3_gazebo)/rviz/Rvizconfig.rviz"/>
+  </group>
+
+
+  <node name="init_pose" pkg="turtlebot3_gazebo" type="init_pose.py" respawn="true" />  
+
+</launch>
