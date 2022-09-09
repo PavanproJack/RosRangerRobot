@@ -2,7 +2,7 @@
 # Set minimum required version of cmake, project name and compile options
 ################################################################################
 cmake_minimum_required(VERSION 3.0.2)
-project(turtlebot3_gazebo)
+project(ranger_bot)
 cmake_policy(SET CMP0054 NEW)
 
 ## Compile as C++11, supported in ROS Kinetic and newer

@@ -15,12 +15,12 @@
     <param name="base_local_planner" value="eband_local_planner/EBandPlannerROS"/>
 
     <!-- <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" /> -->
-    <rosparam file="$(find turtlebot3_gazebo)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find turtlebot3_gazebo)/param/costmap_common_params_$(arg model).yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find turtlebot3_gazebo)/param/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find turtlebot3_gazebo)/param/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find turtlebot3_gazebo)/param/move_base_params.yaml" command="load" />
-    <rosparam file="$(find turtlebot3_gazebo)/param/dwa_local_planner_params_$(arg model).yaml" command="load" />
+    <rosparam file="$(find ranger_bot)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find ranger_bot)/param/costmap_common_params_$(arg model).yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find ranger_bot)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ranger_bot)/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ranger_bot)/param/move_base_params.yaml" command="load" />
+    <rosparam file="$(find ranger_bot)/param/dwa_local_planner_params_$(arg model).yaml" command="load" />
 
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="odom" to="$(arg odom_topic)"/>
