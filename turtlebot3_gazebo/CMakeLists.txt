@@ -64,6 +64,12 @@ add_executable(simple_navigation_goals src/navigation_goal.cpp)
 add_dependencies(simple_navigation_goals ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(simple_navigation_goals ${catkin_LIBRARIES})
 
+
+add_library(global_planner_lib src/path_planners/global_planner/global_planner.cpp)
+
+
+
+
 catkin_install_python(PROGRAMS src/init_pose.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

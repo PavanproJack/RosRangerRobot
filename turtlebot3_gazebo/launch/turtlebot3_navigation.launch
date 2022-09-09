@@ -35,25 +35,8 @@
   <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" respawn="false" output="screen" args="-urdf -param robot_description -model turtlebot3_$(arg model)" />
 
 
-  <!-- <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" 
-   output="screen" args="-urdf -param robot_description -model mcl_bot"/> -->
-
-
-  <!-- <arg name="multi_robot_name" default=""/>
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
-    <param name="publish_frequency" type="double" value="50.0" />
-    <param name="tf_prefix" value="$(arg multi_robot_name)"/>
-  </node> -->
-  <!-- Send fake joint values-->
-  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/> -->
-
-
-
-
   <!-- Send robot states to tf -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
-
-
 
 
   <!-- AMCL -->
@@ -74,6 +57,6 @@
   </group>
 
 
-  <node name="init_pose" pkg="turtlebot3_gazebo" type="init_pose.py" respawn="true" />  
+  <node name="init_pose" pkg="turtlebot3_gazebo" type="init_pose.py" respawn="false" />  
 
 </launch>
