@@ -10,10 +10,9 @@
 
   <license>Apache 2.0</license>
 
-  <author email="pyo@robotis.com">Pyo</author>
-  <author email="thlim@robotis.com">Darby Lim</author>
-  <author email="kkjong@robotis.com">Gilbert</author>
-  <maintainer email="willson@robotis.com">Will Son</maintainer>
+  <author email="kavvuripavankumar@gmail.com">Pavan</author>
+
+  <maintainer email="kavvuripavankumar@gmail.com">Pavan</maintainer>
 
   <buildtool_depend>catkin</buildtool_depend>
 
@@ -29,12 +28,11 @@
   <exec_depend>gazebo</exec_depend>
   <exec_depend>turtlebot3_description</exec_depend>
   <!-- <exec_depend>nav_core</exec_depend> -->
-  
 
   <export>
     <gazebo_ros gazebo_media_path="${prefix}"/>
     <gazebo_ros gazebo_model_path="${prefix}/models"/>
-    <nav_core plugin="${prefix}/global_planner_plugin.xml" />
+    <nav_core plugin="${prefix}/config/plugins/RAstar_plugin.xml" />
   </export>
 
 </package>

@@ -1,12 +1,12 @@
 ################################################################################
 # Set minimum required version of cmake, project name and compile options
 ################################################################################
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 2.8.3)
 project(ranger_bot)
 cmake_policy(SET CMP0054 NEW)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+# add_compile_options(-std=c++11)
 
 ################################################################################
 # Find catkin packages and libraries for catkin and system dependencies
@@ -20,6 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   tf
   gazebo_ros
+  nav_core
 )
 
 find_package(gazebo REQUIRED)
@@ -41,7 +42,7 @@ find_package(gazebo REQUIRED)
 ################################################################################
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS roscpp std_msgs sensor_msgs geometry_msgs nav_msgs tf gazebo_ros
+  CATKIN_DEPENDS roscpp std_msgs sensor_msgs geometry_msgs nav_msgs tf gazebo_ros nav_core
   DEPENDS GAZEBO
 )
 
@@ -65,7 +66,11 @@ add_dependencies(simple_navigation_goals ${${PROJECT_NAME}_EXPORTED_TARGETS} ${c
 target_link_libraries(simple_navigation_goals ${catkin_LIBRARIES})
 
 
-add_library(global_planner_lib src/path_planners/global_planner/global_planner.cpp)
+add_library(RAstar_planner_lib src/path_planners/global_planners/RAstar_planner.cpp)
+target_link_libraries(
+     RAstar_planner_lib 
+     ${catkin_LIBRARIES} 
+)
 
 
 
@@ -87,6 +92,16 @@ install(DIRECTORY include/${PROJECT_NAME}/
 
 install(DIRECTORY launch models rviz worlds 
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+
+install(TARGETS RAstar_planner_lib
+  # ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  # RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY config/
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
 )
 
 ################################################################################
