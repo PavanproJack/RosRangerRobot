@@ -1,7 +1,0 @@
-
-<launch>
-  <!-- Show Gazebo GUI on launch -->
-  <include file="$(find turtlebot3_gazebo)/launch/small_warehouse.launch">
-    <arg name="gui" value="true"/>
-  </include>
-</launch>
