@@ -27,13 +27,17 @@
 
   <exec_depend>gazebo</exec_depend>
   <exec_depend>turtlebot3_description</exec_depend>
-  <!-- <exec_depend>nav_core</exec_depend> -->
+  <exec_depend>message_runtime</exec_depend>
+  <!-- <exec_depend>nav_core</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend> -->
 
   <export>
     <gazebo_ros gazebo_media_path="${prefix}"/>
     <gazebo_ros gazebo_model_path="${prefix}/models"/>
-    <nav_core plugin="${prefix}/config/plugins/RAstar_plugin.xml" />
-    <!-- <nav_core plugin="${prefix}/config/plugins/slp_plugin.xml" /> -->
+    <!-- <nav_core plugin="${prefix}/config/plugins/RAstar_plugin.xml" /> -->
+    <nav_core plugin="${prefix}/config/plugins/dummy_local_planner.xml" />
   </export>
 
 </package>

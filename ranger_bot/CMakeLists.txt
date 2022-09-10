@@ -23,6 +23,8 @@ find_package(catkin REQUIRED COMPONENTS
   nav_core
   pluginlib
   nav_msgs
+  costmap_2d
+  base_local_planner
 )
 
 find_package(gazebo REQUIRED)
@@ -81,6 +83,9 @@ target_link_libraries(simple_navigation_goals ${catkin_LIBRARIES})
 #  )
 
 
+add_library(dummy_local_planner_lib src/path_planners/local_planners/dummy_local_planner.cpp)
+target_link_libraries(dummy_local_planner_lib ${catkin_LIBRARIES})
+
 catkin_install_python(PROGRAMS src/init_pose.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
@@ -105,6 +110,15 @@ install(DIRECTORY launch models rviz worlds
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   # RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
+
+install(TARGETS dummy_local_planner_lib
+        ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        )
+
+install(FILES dummy_local_planner.xml
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 
 # install(DIRECTORY config/
 #    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
