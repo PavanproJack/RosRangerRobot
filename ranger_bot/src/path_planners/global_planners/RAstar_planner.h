@@ -93,7 +93,7 @@ using std::string;
 	//return min(abs(x1-x2),abs(y1-y2))*sqrt(2) + max(abs(x1-x2),abs(y1-y2))-min(abs(x1-x2),abs(y1-y2));
   }
   
-  void addNeighborCellToOpenList(multiset & OPL, int neighborCell, int goalCell, float g_score[]);
+  // void addNeighborCellToOpenList(multiset<cells> & OPL, int neighborCell, int goalCell, float g_score[]);
   vector<int> findFreeNeighborCell (int CellID);
   bool isStartAndGoalCellsValid(int startCell,int goalCell); 
   float getMoveCost(int CellID1, int CellID2);

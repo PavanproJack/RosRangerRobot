@@ -33,6 +33,7 @@
     <gazebo_ros gazebo_media_path="${prefix}"/>
     <gazebo_ros gazebo_model_path="${prefix}/models"/>
     <nav_core plugin="${prefix}/config/plugins/RAstar_plugin.xml" />
+    <!-- <nav_core plugin="${prefix}/config/plugins/slp_plugin.xml" /> -->
   </export>
 
 </package>
