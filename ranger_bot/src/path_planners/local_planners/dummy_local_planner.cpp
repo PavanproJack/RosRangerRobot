@@ -17,7 +17,7 @@
 #include <nav_core/parameter_magic.h>
 #include <tf2/utils.h>
 
-#include "dummy_local_planner.h"
+#include "ranger_bot/dummy_local_planner.h"
 
 
 const double INF                        = std::numeric_limits<double>::infinity();
