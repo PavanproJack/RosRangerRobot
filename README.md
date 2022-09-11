@@ -83,6 +83,10 @@ $ rostopic echo /robot_status
 ```
 
 ## Note
+
+```diff
+- Getting the robot to navigate with the custom local planner is still a work inProgress while different approaches are experimented.
+```
 ***Getting the robot to navigate with the custom local planner is still a work inProgress while different approaches are experimented.***
 
 
@@ -101,4 +105,5 @@ $ rostopic echo /robot_status
 6. [`amcl`](http://wiki.ros.org/amcl) ros package which is a probabilistic localization system for a robot moving in 2D
 
 7. Others:  [Relaxed Astar](https://github.com/aranyadan/relaxed_astar), [Bubble local Planner](https://github.com/adrianapadilla/bubble_local_planner) for obstacle avoidance, customised [DWA local planner](https://github.com/davidezilio/custom_navigation), [Pure-pursuit local planner](https://github.com/raphaelkba/pure_pursuit)
+
 
