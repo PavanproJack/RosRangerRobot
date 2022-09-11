@@ -4,7 +4,7 @@ RangerRobot is a ROS package that implements a new local planner for move_base w
 
 This project aims to autonomously navigate a robot from it's source location to the target location 
 
-# Components and Software
+## Components and Software
 RangerRobot is built with the following:
 
 1. `ROS1` on melodic version
@@ -12,16 +12,10 @@ RangerRobot is built with the following:
 3. [`Gazebo`](https://classic.gazebosim.org/) multi-robot simulator on version 9.0.0
 
 
-# Custom local planner using ROS Navigation Stack
+## Custom local planner using ROS Navigation Stack
 This repository contains a custom Local planners.
 The algorithms implemented are
 - DWA for local planner
-
-Both planners have been developed following the specificied interfaces
-- [Tutorial](http://wiki.ros.org/navigation/Tutorials/Writing%20a%20Local%20Path%20Planner%20As%20Plugin%20in%20ROS)
-
-- [BaseLocalPlanner interface](http://docs.ros.org/melodic/api/nav_core/html/classnav__core_1_1BaseLocalPlanner.html)
-
 
 The following functions from the **BaseLocalPlanner** interface are overriden in the custom local planner:
 - initialize
