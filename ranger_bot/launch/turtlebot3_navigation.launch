@@ -53,7 +53,7 @@
   <!-- rviz -->
   <group if="$(arg open_rviz)"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
-          args="-d $(find ranger_bot)/rviz/Rvizconfig.rviz"/>
+          args="-d $(find ranger_bot)/rviz/turtlebot3_navigation.rviz"/>
   </group>
 
 
