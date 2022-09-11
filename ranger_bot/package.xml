@@ -24,12 +24,14 @@
   <depend>tf</depend>
   <depend>gazebo_ros</depend>
   <depend>nav_core</depend>
+  <depend>dynamic_reconfigure</depend>
+  <depend>pluginlib</depend>
 
   <exec_depend>gazebo</exec_depend>
   <exec_depend>turtlebot3_description</exec_depend>
   <exec_depend>message_runtime</exec_depend>
-  <!-- <exec_depend>nav_core</exec_depend>
-  <exec_depend>roscpp</exec_depend>
+  <!-- <exec_depend>dynamic_reconfigure</exec_depend> -->
+  <!-- <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>std_msgs</exec_depend> -->
 
@@ -38,6 +40,7 @@
     <gazebo_ros gazebo_model_path="${prefix}/models"/>
     <!-- <nav_core plugin="${prefix}/config/plugins/RAstar_plugin.xml" /> -->
     <nav_core plugin="${prefix}/config/plugins/dummy_local_planner.xml" />
+    <nav_core plugin="${prefix}/config/plugins/pure_pursuit_plugin.xml"/>
   </export>
 
 </package>
