@@ -32,11 +32,36 @@ $ cd ~/catkin_ws/
 $ catkin build     
 $ source devel/setup.bash  
 ```
-And finally,
+And for 
+
+Navigation with the `BaseGlobalPlanner` and `EbandLocalPlanner` enable the following in move_base.launch under the `launch`
+folder.
+
+```
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <param name="base_local_planner" value="eband_local_planner/EBandPlannerROS"/>
+```
+
+and for launch with the customised local planner
+
+```
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <param name="dummy_local_planner" value="dummy_local_planner/DummyLocalPlanner" />
+```
+
+With these changes, hit this command on the terminal
 
 ```
 $ roslaunch ranger_bot turtlebot3_navigation.launch
 ```
+
+This opens up RVIZ and Gazebo world ....... 
+
+
+# Assigning Tasks/Goals
+
+
+
 
 
 ## References
@@ -54,3 +79,4 @@ $ roslaunch ranger_bot turtlebot3_navigation.launch
 6. [`amcl`](http://wiki.ros.org/amcl) ros package which is a probabilistic localization system for a robot moving in 2D
 
 7. Others:  [Relaxed Astar](https://github.com/aranyadan/relaxed_astar), [Bubble local Planner](https://github.com/adrianapadilla/bubble_local_planner) for obstacle avoidance, customised [DWA local planner](https://github.com/davidezilio/custom_navigation), [Pure-pursuit local planner](https://github.com/raphaelkba/pure_pursuit)
+
