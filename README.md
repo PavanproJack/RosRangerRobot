@@ -84,9 +84,6 @@ $ rostopic echo /robot_status
 
 ## Note
 
-```diff
-- Getting the robot to navigate with the custom local planner is still a work inProgress while different approaches are experimented.
-```
 ***Getting the robot to navigate with the custom local planner is still a work inProgress while different approaches are experimented.***
 
 
