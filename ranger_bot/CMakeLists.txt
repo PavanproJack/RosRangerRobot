@@ -41,9 +41,7 @@ find_package(gazebo REQUIRED)
 
 ################################################################################
 # Declare ROS dynamic reconfigure parameters
-generate_dynamic_reconfigure_options(
-  cfg/PurePursuitPlanner.cfg
-)
+
 ################################################################################
 
 ################################################################################

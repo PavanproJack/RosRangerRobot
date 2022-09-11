@@ -48,6 +48,36 @@ namespace dummy_local_planner {
        */
       bool computeVelocityCommands(geometry_msgs::Twist& cmd_vel);
 
+      bool initialized_;
+      
+      tf2_ros::Buffer* tf_;
+      costmap_2d::Costmap2DROS* costmap_ros_;
+      // costmap_2d::Costmap2D* costmap;
+      
+
+      
+      ros::Subscriber odom_sub_;
+      ros::Publisher guiPathPub;
+      ros::Publisher waypointPub;
+      nav_msgs::Path gui_path;
+      
+      double currentVx;
+      double currentVy;
+      double currentWz;
+
+
+
+
+
+
+
+      double rot_stopped_vel_, trans_stopped_vel_;
+      double yaw_goal_tolerance_, xy_goal_tolerance_;
+      bool prune_plan_;
+      
+      
+      boost::mutex odom_mutex_;
+      nav_msgs::Odometry base_odom_;
 
 
     private:
@@ -63,45 +93,9 @@ namespace dummy_local_planner {
        * @brief Compute the square distance between two poses
        */
 
-      bool initialized_;
-      
-      tf2_ros::Buffer* tf_;
-      costmap_2d::Costmap2DROS* costmap_ros_;
-      // costmap_2d::Costmap2D* costmap;
-      geometry_msgs::PoseStamped currentPose;
-      geometry_msgs::PoseStamped nearestPlanPose;
-      geometry_msgs::PoseStamped errGoalPose;
-      std::vector<geometry_msgs::PoseStamped> global_plan_;
-      ros::Subscriber odom_sub_;
-      ros::Publisher guiPathPub;
-      ros::Publisher waypointPub;
-      nav_msgs::Path gui_path;
       ros::NodeHandle nh;
       ros::NodeHandle oh;
 
-
-
-      double sumDistPlan = 0;
-      double sumHeading = 0;
-      double sumVelocity = 0;
-
-      struct ScoringHelper{
-        double vx;
-        double vy;
-        double wz;
-        double distPlan;
-        double heading;
-        double velocity;
-        double score;
-      };
-
-      double rot_stopped_vel_, trans_stopped_vel_;
-      double yaw_goal_tolerance_, xy_goal_tolerance_;
-      bool prune_plan_;
-      
-      
-      boost::mutex odom_mutex_;
-      nav_msgs::Odometry base_odom_;
       
   };
 };

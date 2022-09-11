@@ -40,7 +40,7 @@
     <gazebo_ros gazebo_model_path="${prefix}/models"/>
     <!-- <nav_core plugin="${prefix}/config/plugins/RAstar_plugin.xml" /> -->
     <nav_core plugin="${prefix}/config/plugins/dummy_local_planner.xml" />
-    <nav_core plugin="${prefix}/config/plugins/pure_pursuit_plugin.xml"/>
+    <!-- <nav_core plugin="${prefix}/config/plugins/pure_pursuit_plugin.xml"/> -->
   </export>
 
 </package>
