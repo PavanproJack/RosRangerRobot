@@ -1,0 +1,7 @@
+<library path="lib/libdummy_local_planner_lib">
+  <class name="dummy_local_planner/DummyLocalPlanner" type="dummy_local_planner::DummyLocalPlanner" base_class_type="nav_core::BaseLocalPlanner">
+  <description>
+    This is a dummy local planner plugin for the navigation stack.
+  </description>
+  </class>
+</library>
