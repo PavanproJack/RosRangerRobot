@@ -2,7 +2,7 @@
 
 RangerRobot is a ROS package that implements a new local planner for move_base which is a ROS interface for interacting with the navigation stack on a robot. 
 
-This project aims to autonomously navigate a robot from it's source location to the target location 
+This project aims to autonomously navigate a robot from it's source location to the target location specifically in a ware house environment scene.
 
 ## Components and Software
 RangerRobot is built with the following:
