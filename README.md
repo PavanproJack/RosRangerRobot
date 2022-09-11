@@ -57,6 +57,10 @@ $ roslaunch ranger_bot turtlebot3_navigation.launch
 
 This opens up RVIZ and Gazebo world ....... 
 
+<p align="center">
+  <img src="images/Gazebo_warehouse.png">
+</p>
+
 
 ### Assigning Tasks/Goals
 
