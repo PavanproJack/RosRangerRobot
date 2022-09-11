@@ -63,11 +63,16 @@ This opens up RVIZ and Gazebo world .......
 #### **Two ways**:
 * Click the 2D Nav Goal button in the RViz menu on Toolbar.Set the destination of the robot by dragging the green arrow toward the direction where the robot will be facing. OR
 
-* Launch the `navigation_goal` node like this: 
+* Launch the `goal_handler` node like this and follow the instructions on terminal.
 ```
-$  rosrun  ranger_bot simple_navigation_goals 
+$  rosrun ranger_bot goal_handler 
 ```
 
+Launching `goal_handler` node also helps us in tracking if the robot is tracking the calculated path or if it is lost/stuck by publishing the robot status on the ros-topic `/robot_status`. Check this out by running the following on a sourced terminal.
+
+```
+$ rostopic echo /robot_status
+```
 
 
 ## References

@@ -426,61 +426,7 @@ namespace dummy_local_planner {
         }
       }
     }
-    
 
-
-    /*
-
-    std::vector<geometry_msgs::PoseStamped> transformed_plan;
-
-    // Transform the global plan of the robot from the planner frame to the frame of the costmap, 
-    // select only the (first) part of the plan that is within the costmap area.
-    if(!base_local_planner::transformGlobalPlan(*tf_, global_plan_, global_pose, *costmap, costmap_ros_->getGlobalFrameID(), transformed_plan)){
-      ROS_WARN("Could not transform the global plan to the frame of the controller");
-      return false;
-    }
-
-    //now we'll prune the plan based on the position of the robot
-    if(prune_plan_)
-      base_local_planner::prunePlan(global_pose, transformed_plan, global_plan_);
-
-
-    //if the global plan passed in is empty... we won't do anything
-    if(transformed_plan.empty()) {
-      ROS_WARN("The transformed plan is empty");
-      return false;
-    }
-    ROS_DEBUG_NAMED("dummy_local_planner", "Received a transformed plan with %zu points.", transformed_plan.size());
-  
-
-    tf::Stamped<tf::Pose> goal_point;
-    tf::poseStampedMsgToTF(transformed_plan.back(), goal_point);
-    //we assume the global goal is the last point in the global plan
-    double goal_x = goal_point.getOrigin().getX();
-    double goal_y = goal_point.getOrigin().getY();
-
-    // double yaw = tf::getYaw(goal_point.getRotation());
-    // double goal_th = yaw;
-
-    //check to see if we've reached the goal position
-    if(base_local_planner::getGoalPositionDistance(global_pose, goal_x, goal_y) <= xy_goal_tolerance_){
-
-      cmd_vel.linear.x = 0.0;
-      cmd_vel.linear.y = 0.0;
-      cmd_vel.angular.z = 0.0;
-
-      return true;
-    }
-
-
-    //pass along some dummy drive commands
-    cmd_vel.linear.x = 0.2;
-    cmd_vel.angular.z = 1.5;
-
-
-    ROS_DEBUG_NAMED("dummy_local_planner", "A valid velocity command of (%.2f, %.2f, %.2f) was found for this cycle.", 
-                    cmd_vel.linear.x, cmd_vel.linear.y, cmd_vel.angular.z);
-    */
     return true;
   }
 

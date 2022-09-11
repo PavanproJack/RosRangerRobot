@@ -140,9 +140,10 @@ void goalHandler::chooseJob(){
     else if(MB.getState() == actionlib::SimpleClientGoalState::ACTIVE){
       goalHandler::msg.data = "ACTIVE";
     }
-    else
+    else{
       ROS_INFO("OOPs, Failed to reach the assigned destination.");
-
+      goalHandler::msg.data = "FAILURE";
+    }
     
     goalHandler::robot_status_publisher.publish(goalHandler::msg);
          
@@ -164,8 +165,7 @@ void goalHandler::chooseJob(){
 
 int main (int argc, char **argv)
 {
-    ros::init(argc, argv, "simple_navigation_goals");
-   
+    ros::init(argc, argv, "goal_handler");
     ros::NodeHandle NH;
     goalHandler GH = goalHandler(&NH);
     ros::spin();

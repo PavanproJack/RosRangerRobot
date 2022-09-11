@@ -76,9 +76,9 @@ add_executable(turtlebot3_drive src/turtlebot3_drive.cpp)
 add_dependencies(turtlebot3_drive ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(turtlebot3_drive ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 
-add_executable(simple_navigation_goals src/navigation_goal.cpp)
-add_dependencies(simple_navigation_goals ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(simple_navigation_goals ${catkin_LIBRARIES})
+add_executable(goal_handler src/goal_handler.cpp)
+add_dependencies(goal_handler ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(goal_handler ${catkin_LIBRARIES})
 
 
 # add_library(RAstar_planner_lib src/path_planners/global_planners/RAstar_planner.cpp)
