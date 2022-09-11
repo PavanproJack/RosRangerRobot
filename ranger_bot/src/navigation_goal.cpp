@@ -1,140 +1,173 @@
-/*
- * Author: Automatic Addison
- * Date: May 30, 2021
- * ROS Version: ROS 1 - Melodic
- * Website: https://automaticaddison.com
- * This ROS node sends the robot goals to move to a particular location on 
- * a map. I have configured this program to the map of my own apartment.
- *
- * 1 = Bathroom
- * 2 = Bedroom
- * 3 = Front Door
- * 4 = Living Room
- * 5 = Home Office
- * 6 = Kitchen (Default)
- */
- 
 #include <ros/ros.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include <iostream>
- 
-using namespace std;
- 
-// Action specification for move_base
+#include "std_msgs/String.h"
+
+// using namespace std;
+
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
- 
-int main(int argc, char** argv){
-   
-  // Connect to ROS
-  ros::init(argc, argv, "simple_navigation_goals");
- 
-  //tell the action client that we want to spin a thread by default
-  MoveBaseClient ac("move_base", true);
- 
-  // Wait for the action server to come up so that we can begin processing goals.
-  while(!ac.waitForServer(ros::Duration(5.0))){
-    ROS_INFO("Waiting for the move_base action server to come up");
+
+class goalHandler{
+    private:
+        int input;
+        char choice;
+        move_base_msgs::MoveBaseGoal goal;
+        bool valid_selection;
+        bool run;
+        double connection_timeout;
+        ros::Publisher robot_status_publisher;
+        std_msgs::String msg;
+    
+    public:
+        void chooseJob();
+        goalHandler(ros::NodeHandle* nh): input(1), choice('Y'), run(true), connection_timeout(5.0) {
+          robot_status_publisher = nh->advertise<std_msgs::String>("/robot_status", 10); 
+          chooseJob();
+        }
+};
+
+void goalHandler::chooseJob(){
+
+  MoveBaseClient MB("move_base", true);
+
+  /**
+   * \brief Waits for the ActionServer to connect to this client
+   * \param timeout Max time to block before returning. A zero timeout is interpreted as an infinite timeout.
+   * \return True if the server connected in the allocated time. False on timeout
+   */
+  while(!MB.waitForServer(ros::Duration(goalHandler::connection_timeout))){
+              ROS_INFO("Waiting for the move_base action server to come up");
   }
- 
-  int user_choice = 6;
-  char choice_to_continue = 'Y';
-  bool run = true;
-     
-  while(run) {
- 
-    // Ask the user where he wants the robot to go?
-    cout << "\nWhere do you want the robot to go?" << endl;
-    cout << "\n1 = Bathroom" << endl;
-    cout << "2 = Bedroom" << endl;
-    cout << "3 = Front Door" << endl;
-    cout << "4 = Living Room" << endl;
-    cout << "5 = Home Office" << endl;
-    cout << "6 = Kitchen" << endl;
-    cout << "\nEnter a number: ";
-    cin >> user_choice;
- 
-    // Create a new goal to send to move_base 
-    move_base_msgs::MoveBaseGoal goal;
+
+  /**
+   * @brief  Checks if the action client is successfully connected to the action server
+   * @return True if the server is connected, false otherwise
+   */
+  while(goalHandler::run  && MB.isServerConnected()){
+
+    std::cout << "Action Client successfully to the action server \n";
+
+    std::cout << "\nWonderful. There are three pre-defined destinations as listed here. Please select one of them" << std::endl;
+    std::cout << "\n1 for Rack 1" << std::endl;
+    std::cout << "2 for Rack 2" << std::endl;
+    std::cout << "3 for Rack 3" << std::endl;
+    
+    std::cin >> goalHandler::input;
+
+    std::cout<<"\n\nGreat! You chose to navigate to Rack" <<goalHandler::input << "\n\nNavigating now ...."<< std::endl;
  
     // Send a goal to the robot
     goal.target_pose.header.frame_id = "map";
     goal.target_pose.header.stamp = ros::Time::now();
-         
-    bool valid_selection = true;
- 
-    // Use map_server to load the map of the environment on the /map topic. 
-    // Launch RViz and click the Publish Point button in RViz to 
-    // display the coordinates to the /clicked_point topic.
-    switch (user_choice) {
+
+    goalHandler::valid_selection = true;
+
+  /*
+   * Let the user command goals to the turtlebot by choosing the destinations
+  */
+
+    switch (goalHandler::input) {
       case 1:
-        cout << "\nGoal Location: Bathroom\n" << endl;
-        goal.target_pose.pose.position.x = 10.0;
-    goal.target_pose.pose.position.y = 3.7;
+        std::cout << "\nGoal Location: 1\n" << std::endl;
+        goal.target_pose.pose.position.x = 1.7462;
+        goal.target_pose.pose.position.y = -7.7118;
         goal.target_pose.pose.orientation.w = 1.0;
         break;
+
       case 2:
-        cout << "\nGoal Location: Bedroom\n" << endl;
-        goal.target_pose.pose.position.x = 8.1;
-    goal.target_pose.pose.position.y = 4.3;
+        std::cout << "\nGoal Location: 2\n" << std::endl;
+        goal.target_pose.pose.position.x = 1.64537;
+        goal.target_pose.pose.position.y = 4.3;
         goal.target_pose.pose.orientation.w = 1.0;
         break;
+
       case 3:
-        cout << "\nGoal Location: Front Door\n" << endl;
-        goal.target_pose.pose.position.x = 10.5;
-    goal.target_pose.pose.position.y = 2.0;
+        std::cout << "\nGoal Location: 3\n" << std::endl;
+        goal.target_pose.pose.position.x = -1.6228;
+        goal.target_pose.pose.position.y = -1.6228;
         goal.target_pose.pose.orientation.w = 1.0;
         break;
-      case 4:
-        cout << "\nGoal Location: Living Room\n" << endl;
-        goal.target_pose.pose.position.x = 5.3;
-    goal.target_pose.pose.position.y = 2.7;
-        goal.target_pose.pose.orientation.w = 1.0;
-        break;
-      case 5:
-        cout << "\nGoal Location: Home Office\n" << endl;
-        goal.target_pose.pose.position.x = 2.5;
-    goal.target_pose.pose.position.y = 2.0;
-        goal.target_pose.pose.orientation.w = 1.0;
-        break;
-      case 6:
-        cout << "\nGoal Location: Kitchen\n" << endl;
-        goal.target_pose.pose.position.x = 3.0;
-    goal.target_pose.pose.position.y = 6.0;
-        goal.target_pose.pose.orientation.w = 1.0;
-        break;
+
       default:
-        cout << "\nInvalid selection. Please try again.\n" << endl;
-        valid_selection = false;
-    }       
-         
-    // Go back to beginning if the selection is invalid.
+        std::cout << "\nInvalid selection. Please try again.\n" << std::endl;
+        goalHandler::valid_selection = false;
+    }
+
     if(!valid_selection) {
       continue;
     }
- 
-    ROS_INFO("Sending goal");
-    ac.sendGoal(goal);
- 
-    // Wait until the robot reaches the goal
-    ac.waitForResult();
- 
-    if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-      ROS_INFO("The robot has arrived at the goal location");
-    else
-      ROS_INFO("The robot failed to reach the goal location for some reason");
-         
-    // Ask the user if he wants to continue giving goals
-    do {
-      cout << "\nWould you like to go to another destination? (Y/N)" << endl;
-      cin >> choice_to_continue;
-      choice_to_continue = tolower(choice_to_continue); // Put your letter to its lower case
-    } while (choice_to_continue != 'n' && choice_to_continue != 'y'); 
- 
-    if(choice_to_continue =='n') {
-        run = false;
+
+  /**
+   * \brief Sends a goal to the ActionServer, and also registers callbacks
+  */
+    MB.sendGoal(goal);
+
+      /**
+   * \brief Sends a goal to the ActionServer,
+   * and waits until the goal completes or a timeout is exceeded
+   */
+    // MB.sendGoalAndWait(goal, 50.0)
+
+
+  /**
+   * \brief Blocks until this goal finishes
+   * \param timeout Max time to block before returning. A zero timeout is interpreted as an infinite timeout.
+   * \return True if the goal finished. False if the goal didn't finish within the allocated timeout
+   */
+    MB.waitForResult();
+
+
+  /**
+   * \brief Get the state information for this goal
+   *
+   * Possible States Are: PENDING, ACTIVE, RECALLED, REJECTED, PREEMPTED, ABORTED, SUCCEEDED, LOST.
+   * \return The goal's state. Returns LOST if this SimpleActionClient isn't tracking a goal.
+   * 
+   * Also publishes the status of the robot for tracking.
+   */
+    goalHandler::msg.data = " ";
+    if(MB.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+      ROS_INFO("Success. Robot has reached the assigned destination");
+      goalHandler::msg.data = "SUCCESS";
     }  
+    else if(MB.getState() == actionlib::SimpleClientGoalState::LOST){
+      goalHandler::msg.data = "LOST";
+    }
+    else if(MB.getState() == actionlib::SimpleClientGoalState::PENDING){
+      goalHandler::msg.data = "PENDING";
+    }
+    else if(MB.getState() == actionlib::SimpleClientGoalState::ACTIVE){
+      goalHandler::msg.data = "ACTIVE";
+    }
+    else
+      ROS_INFO("OOPs, Failed to reach the assigned destination.");
+
+    
+    goalHandler::robot_status_publisher.publish(goalHandler::msg);
+         
+    do {
+      std::cout << "\nWould you like add another destination? (Y/N)" << std::endl;
+      std::cin >> goalHandler::choice;;
+      goalHandler::choice = tolower(goalHandler::choice); 
+    } while (goalHandler::choice != 'n' && goalHandler::choice != 'y'); 
+ 
+    if(goalHandler::choice =='n') {
+        goalHandler::run = false;
+        exit(0);
+    }
   }
+
+
+
+}
+
+int main (int argc, char **argv)
+{
+    ros::init(argc, argv, "simple_navigation_goals");
    
-  return 0;
+    ros::NodeHandle NH;
+    goalHandler GH = goalHandler(&NH);
+    ros::spin();
+    return 0;
 }

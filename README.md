@@ -58,9 +58,9 @@ $ roslaunch ranger_bot turtlebot3_navigation.launch
 This opens up RVIZ and Gazebo world ....... 
 
 
-## Assigning Tasks/Goals
+### Assigning Tasks/Goals
 
-### **Two ways**:
+#### **Two ways**:
 * Click the 2D Nav Goal button in the RViz menu on Toolbar.Set the destination of the robot by dragging the green arrow toward the direction where the robot will be facing. OR
 
 * Launch the `navigation_goal` node like this: 
