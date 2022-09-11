@@ -68,11 +68,14 @@ This opens up RVIZ and Gazebo world .......
 $  rosrun ranger_bot goal_handler 
 ```
 
-Launching `goal_handler` node also helps us in tracking if the robot is tracking the calculated path or if it is lost/stuck by publishing the robot status on the ros-topic `/robot_status`. Check this out by running the following on a sourced terminal.
+Launching `goal_handler` node also helps us in tracking if the robot is following the calculated path or if it is lost/stuck by publishing the robot status on the ros-topic `/robot_status`. Check this out by running the following on a sourced terminal.
 
 ```
 $ rostopic echo /robot_status
 ```
+
+## Note
+***Getting the robot to navigate with the custom local planner is still a work inProgress while different approaches are experimented.***
 
 
 ## References
