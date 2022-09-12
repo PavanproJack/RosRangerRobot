@@ -7,7 +7,7 @@ TrajectoryPlannerROS:
 
   acc_lim_theta: 0.25
   acc_lim_x: 0.25
-  acc_lim_y: 0.25
+  acc_lim_y: 0.25 
 
   sim_time: 4
 
